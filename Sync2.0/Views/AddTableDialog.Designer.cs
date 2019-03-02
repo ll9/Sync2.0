@@ -142,11 +142,10 @@
         private System.Windows.Forms.BindingSource addTableViewModelBindingSource;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.DataGridView columnViewModelsDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewComboBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataTypeDataGridViewComboBoxColumn;
         private System.Windows.Forms.BindingSource columnViewModelBindingSource;
         private System.Windows.Forms.Button OkButton;
-        private System.Windows.Forms.Button CancelButton;
+        private new System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataTypeDataGridViewTextBoxColumn;
     }
