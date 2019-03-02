@@ -157,7 +157,12 @@
   <ItemGroup>
     <Compile Include="ViewModels\AddTableViewModel.cs" />
     <Compile Include="ViewModels\ColumnViewModel.cs" />
-    <Compile Include="Views\AddTableDialog.cs" />
+    <Compile Include="Views\AddTableDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AddTableDialog.Designer.cs">
+      <DependentUpon>AddTableDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,10 +180,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\AddTableDialog.resx">
+      <DependentUpon>AddTableDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\MainDialog.resx">
       <DependentUpon>MainDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Sync2._0.ViewModels.AddTableViewModel.datasource" />
+    <None Include="Properties\DataSources\Sync2._0.ViewModels.ColumnViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

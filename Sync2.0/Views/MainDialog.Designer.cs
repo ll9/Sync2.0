@@ -48,6 +48,7 @@
             this.AddTableButton.TabIndex = 1;
             this.AddTableButton.Text = "Add Table";
             this.AddTableButton.UseVisualStyleBackColor = true;
+            this.AddTableButton.Click += new System.EventHandler(this.AddTableButton_Click);
             // 
             // MainDialog
             // 

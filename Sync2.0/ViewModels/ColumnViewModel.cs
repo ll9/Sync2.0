@@ -12,8 +12,8 @@ namespace Sync2._0.ViewModels
     {
         private string _name;
         public string Name { get => _name; set => SetField(ref _name, value); }
-        private string _dataType;
-        public string DataType { get => _dataType; set => SetField(ref _dataType, value); }
+        private Type _dataType;
+        public Type DataType { get => _dataType; set => SetField(ref _dataType, value); }
 
         public bool IsValid { get => !string.IsNullOrEmpty(Name); }
 
