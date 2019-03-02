@@ -25,8 +25,7 @@ namespace Sync2._0.Repositories
                     "Id TEXT DEFAULT (HEX(RANDOMBLOB(16))) PRIMARY KEY",
                     "SyncStatus BOOLEAN",
                     "IsDeleted BOOLEAN",
-                    "RowVersion INTEGER",
-                    "Json TEXT"
+                    "RowVersion INTEGER"
                 }.Concat(
                     columns.Select(c => $"{c.Name} {c.DataType.GetSqlType()}")
                     )
