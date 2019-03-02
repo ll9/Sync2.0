@@ -33,11 +33,11 @@
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.addTableViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.columnViewModelsDataGridView = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.columnViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.OkButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
+            this.dataTypeDataGridViewCombooBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             nameLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.addTableViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.columnViewModelsDataGridView)).BeginInit();
@@ -70,7 +70,7 @@
             this.columnViewModelsDataGridView.AutoGenerateColumns = false;
             this.columnViewModelsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.columnViewModelsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nameDataGridViewTextBoxColumn,
+            this.dataTypeDataGridViewCombooBoxColumn,
             this.dataTypeDataGridViewTextBoxColumn});
             this.columnViewModelsDataGridView.DataBindings.Add(new System.Windows.Forms.Binding("DataSource", this.addTableViewModelBindingSource, "ColumnViewModels", true));
             this.columnViewModelsDataGridView.DataSource = this.columnViewModelBindingSource;
@@ -78,20 +78,6 @@
             this.columnViewModelsDataGridView.Name = "columnViewModelsDataGridView";
             this.columnViewModelsDataGridView.Size = new System.Drawing.Size(249, 220);
             this.columnViewModelsDataGridView.TabIndex = 2;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // dataTypeDataGridViewTextBoxColumn
-            // 
-            this.dataTypeDataGridViewTextBoxColumn.DataPropertyName = "DataType";
-            this.dataTypeDataGridViewTextBoxColumn.HeaderText = "DataType";
-            this.dataTypeDataGridViewTextBoxColumn.Name = "dataTypeDataGridViewTextBoxColumn";
-            this.dataTypeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataTypeDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // columnViewModelBindingSource
             // 
@@ -116,6 +102,20 @@
             this.CancelButton.Text = "Abbrechen";
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
+            // dataTypeDataGridViewCombooBoxColumn
+            // 
+            this.dataTypeDataGridViewCombooBoxColumn.DataPropertyName = "Name";
+            this.dataTypeDataGridViewCombooBoxColumn.HeaderText = "Name";
+            this.dataTypeDataGridViewCombooBoxColumn.Name = "dataTypeDataGridViewCombooBoxColumn";
+            // 
+            // dataTypeDataGridViewTextBoxColumn
+            // 
+            this.dataTypeDataGridViewTextBoxColumn.DataPropertyName = "DataType";
+            this.dataTypeDataGridViewTextBoxColumn.HeaderText = "DataType";
+            this.dataTypeDataGridViewTextBoxColumn.Name = "dataTypeDataGridViewTextBoxColumn";
+            this.dataTypeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataTypeDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // AddTableDialog
             // 
@@ -146,7 +146,7 @@
         private System.Windows.Forms.BindingSource columnViewModelBindingSource;
         private System.Windows.Forms.Button OkButton;
         private new System.Windows.Forms.Button CancelButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataTypeDataGridViewCombooBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataTypeDataGridViewTextBoxColumn;
     }
 }

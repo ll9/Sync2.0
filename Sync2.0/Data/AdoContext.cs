@@ -20,5 +20,14 @@ namespace Sync2._0.Data
             connection.Open();
             return connection;
         }
+
+        public void ExecuteQuery(string query)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqliteCommand(query, connection))
+            {
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }
