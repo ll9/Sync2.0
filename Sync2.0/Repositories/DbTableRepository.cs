@@ -22,10 +22,10 @@ namespace Sync2._0.Repositories
         {
             var columnQuery = string.Join(", ",
                 new[] {
-                    "Id TEXT DEFAULT (HEX(RANDOMBLOB(16))) PRIMARY KEY",
-                    "SyncStatus BOOLEAN",
-                    "IsDeleted BOOLEAN",
-                    "RowVersion INTEGER"
+                    $"{nameof(SyncEntity.Id)} TEXT DEFAULT (HEX(RANDOMBLOB(16))) PRIMARY KEY",
+                    $"{nameof(SyncEntity.SyncStatus)} BOOLEAN",
+                    $"{nameof(SyncEntity.IsDeleted)} BOOLEAN",
+                    $"{nameof(SyncEntity.RowVersion)} INTEGER"
                 }.Concat(
                     columns.Select(c => $"{c.Name} {c.DataType.GetSqlType()}")
                     )
