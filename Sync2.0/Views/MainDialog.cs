@@ -1,4 +1,6 @@
-﻿using Sync2._0.Views;
+﻿using Sync2._0.Controllers;
+using Sync2._0.Models;
+using Sync2._0.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,9 +15,12 @@ namespace Sync2._0
 {
     public partial class MainDialog : Form
     {
+        private MainController _controller;
+
         public MainDialog()
         {
             InitializeComponent();
+            _controller = new MainController(this);
         }
 
         private void AddTableButton_Click(object sender, EventArgs e)
@@ -24,7 +29,10 @@ namespace Sync2._0
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                Console.WriteLine(1);
+                _controller.AddTable(
+                    dialog.AddTableViewModel.Name,
+                    dialog.AddTableViewModel.ColumnViewModels.Select(c => new Column(c.Name, c.DataType))
+                    );
             }
         }
     }
