@@ -36,17 +36,17 @@ namespace Sync2._0.Views
         private void Initialize()
         {
             AddTableViewModel = new AddTableViewModel();
-            addTableViewModelBindingSource.DataSource = new AddTableViewModel();
-            dataTypeDataGridViewComboBoxColumn.DataSource = new List<NameComboBoxItem>
+            addTableViewModelBindingSource.DataSource = AddTableViewModel;
+            dataTypeComboBoxColumn.DataSource = new List<NameComboBoxItem>
             {
                 new NameComboBoxItem("Text", typeof(string)),
                 new NameComboBoxItem("Zahl", typeof(double)),
                 new NameComboBoxItem("Datum", typeof(DateTime))
             };
-            dataTypeDataGridViewComboBoxColumn.DisplayMember = nameof(NameComboBoxItem.Display);
-            dataTypeDataGridViewComboBoxColumn.ValueMember = nameof(NameComboBoxItem.Value);
+            dataTypeComboBoxColumn.DisplayMember = nameof(NameComboBoxItem.Display);
+            dataTypeComboBoxColumn.ValueMember = nameof(NameComboBoxItem.Value);
 
-            columnViewModelsDataGridView.DefaultValuesNeeded += (s, e) => e.Row.Cells[dataTypeDataGridViewComboBoxColumn.Name].Value = typeof(string);
+            columnViewModelsDataGridView.DefaultValuesNeeded += (s, e) => e.Row.Cells[dataTypeComboBoxColumn.Name].Value = typeof(string);
         }
 
         private void OkButton_Click(object sender, EventArgs e)
