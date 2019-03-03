@@ -16,6 +16,7 @@ namespace Sync2._0
     public partial class MainDialog : Form
     {
         private MainController _controller;
+        private string _contextMenuClickedColumnHeader;
 
         public MainDialog()
         {
@@ -44,9 +45,27 @@ namespace Sync2._0
                 DataSource = table,
                 Dock = DockStyle.Fill
             };
+            dataGrid.ColumnHeaderMouseClick += DataGrid_ColumnHeaderMouseClick;
 
             tabPage.Controls.Add(dataGrid);
             GridTabControl.TabPages.Add(tabPage);
+        }
+
+        private void DataGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (sender is DataGridView dataGrid)
+            {
+                var hitTest = dataGrid.HitTest(e.X, e.Y);
+
+                if (e.Button == MouseButtons.Right)
+                {
+                    if (hitTest.RowIndex == -1)
+                    {
+                        _contextMenuClickedColumnHeader = dataGrid.Columns[e.ColumnIndex].HeaderText;
+                        ColumnMenuStrip.Show(dataGrid, dataGrid.PointToClient(Cursor.Position));
+                    }
+                }
+            }
         }
     }
 }

@@ -28,8 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.GridTabControl = new System.Windows.Forms.TabControl();
             this.AddTableButton = new System.Windows.Forms.Button();
+            this.ColumnMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.AddColumnMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DropColumnMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ColumnMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // GridTabControl
@@ -50,6 +55,26 @@
             this.AddTableButton.UseVisualStyleBackColor = true;
             this.AddTableButton.Click += new System.EventHandler(this.AddTableButton_Click);
             // 
+            // ColumnMenuStrip
+            // 
+            this.ColumnMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AddColumnMenuItem,
+            this.DropColumnMenuItem});
+            this.ColumnMenuStrip.Name = "contextMenuStrip1";
+            this.ColumnMenuStrip.Size = new System.Drawing.Size(170, 48);
+            // 
+            // AddColumnMenuItem
+            // 
+            this.AddColumnMenuItem.Name = "AddColumnMenuItem";
+            this.AddColumnMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.AddColumnMenuItem.Text = "Spalte hinzufügen";
+            // 
+            // DropColumnMenuItem
+            // 
+            this.DropColumnMenuItem.Name = "DropColumnMenuItem";
+            this.DropColumnMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.DropColumnMenuItem.Text = "Spalte löschen";
+            // 
             // MainDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -59,6 +84,7 @@
             this.Controls.Add(this.GridTabControl);
             this.Name = "MainDialog";
             this.Text = "Form1";
+            this.ColumnMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -67,6 +93,9 @@
 
         private System.Windows.Forms.TabControl GridTabControl;
         private System.Windows.Forms.Button AddTableButton;
+        private System.Windows.Forms.ContextMenuStrip ColumnMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem AddColumnMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DropColumnMenuItem;
     }
 }
 
