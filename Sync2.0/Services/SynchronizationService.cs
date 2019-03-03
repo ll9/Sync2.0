@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+using RestSharp.Serializers.Newtonsoft.Json;
 using Sync2._0.Data;
 using Sync2._0.Models;
 using System;
@@ -17,14 +18,14 @@ namespace Sync2._0.Services
         public SynchronizationService(ApplicationDbContext context)
         {
             _context = context;
-            _client = new RestClient("http://localhost:3267");
+            _client = new RestClient("https://localhost:44305");
         }
 
         public void Sync()
         {
             foreach (var projectTable in _context.ProjectTables.Where(p => p.SyncStatus == false))
             {
-                var request = new RestRequest("api/ProjectTables", Method.POST);
+                var request = new RestSharp.Serializers.Newtonsoft.Json.RestRequest("api/ProjectTables", Method.POST);
                 request.AddJsonBody(projectTable);
 
                 var response = _client.Execute<int>(request);

@@ -35,6 +35,7 @@
             this.AddColumnMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DropColumnMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RefreshButton = new System.Windows.Forms.Button();
+            this.SyncButton = new System.Windows.Forms.Button();
             this.ColumnMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,11 +89,22 @@
             this.RefreshButton.UseVisualStyleBackColor = true;
             this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
+            // SyncButton
+            // 
+            this.SyncButton.Location = new System.Drawing.Point(831, 117);
+            this.SyncButton.Name = "SyncButton";
+            this.SyncButton.Size = new System.Drawing.Size(75, 23);
+            this.SyncButton.TabIndex = 3;
+            this.SyncButton.Text = "Sync";
+            this.SyncButton.UseVisualStyleBackColor = true;
+            this.SyncButton.Click += new System.EventHandler(this.SyncButton_Click);
+            // 
             // MainDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(941, 428);
+            this.Controls.Add(this.SyncButton);
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.AddTableButton);
             this.Controls.Add(this.GridTabControl);
@@ -111,6 +123,7 @@
         private System.Windows.Forms.ToolStripMenuItem AddColumnMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DropColumnMenuItem;
         private System.Windows.Forms.Button RefreshButton;
+        private System.Windows.Forms.Button SyncButton;
     }
 }
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Sync2._0.Data;
 using Sync2._0.Models;
 using Sync2._0.Repositories;
+using Sync2._0.Services;
 
 namespace Sync2._0.Controllers
 {
@@ -19,6 +20,7 @@ namespace Sync2._0.Controllers
         private ApplicationDbContext _efContext;
         private ProjectTableChangeSetRepository _projectTableChangeSetRepository;
         private ProjectTableRepository _projectTableRepository;
+        private SynchronizationService _syncService;
 
         public MainController(MainDialog mainDialog)
         {
@@ -28,6 +30,7 @@ namespace Sync2._0.Controllers
             _efContext = new ApplicationDbContext();
             _projectTableChangeSetRepository = new ProjectTableChangeSetRepository(_efContext);
             _projectTableRepository = new ProjectTableRepository(_efContext);
+            _syncService = new SynchronizationService(_efContext);
 
             _efContext.Database.Migrate();
             LoadGrids();
@@ -63,6 +66,11 @@ namespace Sync2._0.Controllers
             _dbTableRepository.DropColumn(tableName, columnName);
             _projectTableChangeSetRepository.DropColumn(tableName, columnName);
             _projectTableRepository.DropColumn(tableName, columnName);
+        }
+
+        internal void Sync()
+        {
+            _syncService.Sync();
         }
     }
 }

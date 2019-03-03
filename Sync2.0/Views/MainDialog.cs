@@ -111,5 +111,10 @@ namespace Sync2._0
             GridTabControl.Controls.Clear();
             _controller.LoadGrids();
         }
+
+        private void SyncButton_Click(object sender, EventArgs e)
+        {
+            _controller.Sync();
+        }
     }
 }
