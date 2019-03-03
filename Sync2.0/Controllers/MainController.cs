@@ -17,6 +17,7 @@ namespace Sync2._0.Controllers
         private AdoContext _adoContext;
         private DbTableRepository _dbTableRepository;
         private ApplicationDbContext _efContext;
+        private ProjectTableChangeSetRepository _projectTableChangeSetRepository;
 
         public MainController(MainDialog mainDialog)
         {
@@ -24,6 +25,7 @@ namespace Sync2._0.Controllers
             _adoContext = new AdoContext();
             _dbTableRepository = new DbTableRepository(_adoContext);
             _efContext = new ApplicationDbContext();
+            _projectTableChangeSetRepository = new ProjectTableChangeSetRepository(_efContext);
 
             _efContext.Database.Migrate();
             LoadGrids();
@@ -50,59 +52,13 @@ namespace Sync2._0.Controllers
         internal void AddColumn(string tableName, string columnName, Type columnDataType)
         {
             _dbTableRepository.AddColumn(tableName, columnName, columnDataType);
-
-            var changeset = _efContext.ProjectTableChangeSets.SingleOrDefault(p => p.Name == tableName);
-            if (changeset == null)
-            {
-                throw new InvalidOperationException("Cannot Add Column to nonexistent table");
-            }
-            else
-            {
-                var dict = changeset.JsonDict;
-                if (dict.ContainsKey(columnName))
-                {
-                    if (dict[columnName] == null)
-                    {
-                        dict[columnName] = new Column(columnName, columnDataType);
-                        changeset.JsonDict = dict;
-                    }
-                    else if (dict[columnName].DataType != columnDataType)
-                    {
-                        throw new InvalidOperationException("Column already exists with different Datatype");
-                    }
-                }
-                else
-                {
-                    dict[columnName] = new Column(columnName, columnDataType);
-                    changeset.JsonDict = dict;
-                }
-            }
-            _efContext.SaveChanges();
+            _projectTableChangeSetRepository.AddColumn(tableName, columnName, columnDataType);
         }
 
         internal void DropColumn(string tableName, string columnName)
         {
             _dbTableRepository.DropColumn(tableName, columnName);
-
-            var changeset = _efContext.ProjectTableChangeSets.SingleOrDefault(p => p.Name == tableName);
-            if (changeset == null)
-            {
-                throw new InvalidOperationException("Cannot Remove Column from nonexistent table");
-            }
-            else
-            {
-                var dict = changeset.JsonDict;
-                if (dict.ContainsKey(columnName))
-                {
-                    dict.Remove(columnName);
-                    changeset.JsonDict = dict;
-                }
-                else
-                {
-                    dict.Add(columnName, null);
-                }
-            }
-            _efContext.SaveChanges();
+            _projectTableChangeSetRepository.DropColumn(tableName, columnName);
         }
     }
 }
