@@ -35,5 +35,18 @@ namespace Sync2._0
                     );
             }
         }
+
+        internal void AddGrid(DataTable table)
+        {
+            var tabPage = new TabPage(table.TableName);
+            var dataGrid = new DataGridView
+            {
+                DataSource = table,
+                Dock = DockStyle.Fill
+            };
+
+            tabPage.Controls.Add(dataGrid);
+            GridTabControl.TabPages.Add(tabPage);
+        }
     }
 }

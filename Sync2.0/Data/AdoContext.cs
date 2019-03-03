@@ -1,7 +1,7 @@
-﻿using Microsoft.Data.Sqlite;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +14,9 @@ namespace Sync2._0.Data
         {
         }
 
-        public SqliteConnection GetConnection()
+        public SQLiteConnection GetConnection()
         {
-            var connection = new SqliteConnection(ConfigurationManager.AppSettings["ConnectionString"]);
+            var connection = new SQLiteConnection(ConfigurationManager.AppSettings["ConnectionString"]);
             connection.Open();
             return connection;
         }
@@ -24,7 +24,7 @@ namespace Sync2._0.Data
         public void ExecuteQuery(string query)
         {
             using (var connection = GetConnection())
-            using (var command = new SqliteCommand(query, connection))
+            using (var command = new SQLiteCommand(query, connection))
             {
                 command.ExecuteNonQuery();
             }

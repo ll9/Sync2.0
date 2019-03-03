@@ -3,6 +3,8 @@ using Sync2._0.Extensions;
 using Sync2._0.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +35,19 @@ namespace Sync2._0.Repositories
             var addTableQuery = $"CREATE TABLE {name}({columnQuery})";
 
             _context.ExecuteQuery(addTableQuery);
+        }
+
+        internal DataTable List(string tableName)
+        {
+            var query = $"SELECT * FROM {tableName}";
+
+            using (var connection = _context.GetConnection())
+            using (var adapter = new SQLiteDataAdapter(query, connection))
+            {
+                var table = new DataTable(tableName);
+                adapter.Fill(table);
+                return table;
+            }
         }
     }
 }
