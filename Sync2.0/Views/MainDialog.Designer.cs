@@ -61,19 +61,21 @@
             this.AddColumnMenuItem,
             this.DropColumnMenuItem});
             this.ColumnMenuStrip.Name = "contextMenuStrip1";
-            this.ColumnMenuStrip.Size = new System.Drawing.Size(170, 48);
+            this.ColumnMenuStrip.Size = new System.Drawing.Size(181, 70);
             // 
             // AddColumnMenuItem
             // 
             this.AddColumnMenuItem.Name = "AddColumnMenuItem";
-            this.AddColumnMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.AddColumnMenuItem.Size = new System.Drawing.Size(180, 22);
             this.AddColumnMenuItem.Text = "Spalte hinzufügen";
+            this.AddColumnMenuItem.Click += new System.EventHandler(this.AddColumnMenuItem_Click);
             // 
             // DropColumnMenuItem
             // 
             this.DropColumnMenuItem.Name = "DropColumnMenuItem";
-            this.DropColumnMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.DropColumnMenuItem.Size = new System.Drawing.Size(180, 22);
             this.DropColumnMenuItem.Text = "Spalte löschen";
+            this.DropColumnMenuItem.Click += new System.EventHandler(this.DropColumnMenuItem_Click);
             // 
             // MainDialog
             // 

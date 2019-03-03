@@ -67,5 +67,31 @@ namespace Sync2._0
                 }
             }
         }
+
+        private void AddColumnMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sender is ToolStripItem menuItem)
+            {
+                if (menuItem.Owner is ContextMenuStrip owner)
+                {
+                    if (owner.SourceControl is DataGridView dataGrid)
+                    {
+                        if (dataGrid.DataSource is DataTable dataTable)
+                        {
+                            var dialog = new AddColumnDialog();
+                            if (dialog.ShowDialog() == DialogResult.OK)
+                            {
+                                //_controller.AddColumn(dataTable, dialog.ColumnViewModel);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DropColumnMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
