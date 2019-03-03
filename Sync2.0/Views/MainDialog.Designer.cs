@@ -43,12 +43,12 @@
             this.GridTabControl.Location = new System.Drawing.Point(24, 13);
             this.GridTabControl.Name = "GridTabControl";
             this.GridTabControl.SelectedIndex = 0;
-            this.GridTabControl.Size = new System.Drawing.Size(575, 320);
+            this.GridTabControl.Size = new System.Drawing.Size(788, 382);
             this.GridTabControl.TabIndex = 0;
             // 
             // AddTableButton
             // 
-            this.AddTableButton.Location = new System.Drawing.Point(635, 13);
+            this.AddTableButton.Location = new System.Drawing.Point(831, 13);
             this.AddTableButton.Name = "AddTableButton";
             this.AddTableButton.Size = new System.Drawing.Size(75, 23);
             this.AddTableButton.TabIndex = 1;
@@ -80,7 +80,7 @@
             // 
             // RefreshButton
             // 
-            this.RefreshButton.Location = new System.Drawing.Point(635, 59);
+            this.RefreshButton.Location = new System.Drawing.Point(831, 59);
             this.RefreshButton.Name = "RefreshButton";
             this.RefreshButton.Size = new System.Drawing.Size(75, 23);
             this.RefreshButton.TabIndex = 2;
@@ -92,7 +92,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(941, 428);
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.AddTableButton);
             this.Controls.Add(this.GridTabControl);
