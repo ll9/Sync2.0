@@ -11,6 +11,53 @@ using System.Threading.Tasks;
 
 namespace Sync2._0.Repositories
 {
+    public class SqlColumn
+    {
+        public SqlColumn(string name, string type, bool notNull, string @default, bool isPrimaryKey)
+        {
+            Name = name;
+            Type = type;
+            NotNull = notNull;
+            Default = @default;
+            IsPrimaryKey = isPrimaryKey;
+        }
+
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public bool NotNull { get; set; }
+        public string Default { get; set; }
+        public bool IsPrimaryKey { get; set; }
+
+        public string GetSqlString()
+        {
+            return $"{Name} {Type} {(string.IsNullOrEmpty(Default) ? "" : $"DEFAULT ({Default})")} {(IsPrimaryKey ? "PRIMARY KEY" : "")} {(NotNull ? "NOT NULL" : "")}";
+        }
+
+        public Type GetCSharpType()
+        {
+            if (Type == "INTEGER")
+            {
+                return typeof(int);
+            }
+            else if (Type == "DOUBLE")
+            {
+                return typeof(double);
+            }
+            else if (Type == "BOOLEAN")
+            {
+                return typeof(bool);
+            }
+            else if (Type == "DATETIME")
+            {
+                return typeof(DateTime);
+            }
+            else
+            {
+                return typeof(string);
+            }
+        }
+    }
+
     public class DbTableRepository
     {
         private readonly AdoContext _context;
@@ -59,6 +106,45 @@ namespace Sync2._0.Repositories
             {
                 command.ExecuteNonQuery();
             }
+        }
+
+        public ICollection<SqlColumn> GetColumns(string tableName)
+        {
+            var columns = new List<SqlColumn>();
+            var query = $"PRAGMA table_info('{tableName}')";
+
+            using (var connection = _context.GetConnection())
+            using (var command = new SQLiteCommand(query, connection))
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    columns.Add(new SqlColumn(
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetBoolean(3),
+                        (reader[4] == DBNull.Value ? null : reader.GetString(4)),
+                        reader.GetBoolean(5)));
+                }
+            }
+            return columns;
+        }
+
+        internal void DropColumn(string tableName, string columnName)
+        {
+            var tempTable = $"_{tableName}";
+            var columns = GetColumns(tableName).Where(c => c.Name != columnName);
+            var columnsString = string.Join(", ", columns.Select(c => c.GetSqlString()));
+
+            var renameQuery = $"ALTER TABLE {tableName} RENAME TO {tempTable}";
+            var createQuery = $"CREATE TABLE {tableName}({columnsString})";
+            var insertQuery = $"INSERT INTO {tableName} SELECT {string.Join(", ", columns.Select(c => c.Name))} FROM {tempTable}";
+            var dropQuery = $"DROP TABLE {tempTable}";
+
+            _context.ExecuteQuery(renameQuery);
+            _context.ExecuteQuery(createQuery);
+            _context.ExecuteQuery(insertQuery);
+            _context.ExecuteQuery(dropQuery);
         }
     }
 }

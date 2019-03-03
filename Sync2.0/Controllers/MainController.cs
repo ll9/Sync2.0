@@ -50,5 +50,10 @@ namespace Sync2._0.Controllers
         {
             _dbTableRepository.AddColumn(tableName, columnName, columnDataType);
         }
+
+        internal void DropColumn(string tableName, string columnName)
+        {
+            _dbTableRepository.DropColumn(tableName, columnName);
+        }
     }
 }
