@@ -18,6 +18,7 @@ namespace Sync2._0.Controllers
         private DbTableRepository _dbTableRepository;
         private ApplicationDbContext _efContext;
         private ProjectTableChangeSetRepository _projectTableChangeSetRepository;
+        private ProjectTableRepository _projectTableRepository;
 
         public MainController(MainDialog mainDialog)
         {
@@ -26,6 +27,7 @@ namespace Sync2._0.Controllers
             _dbTableRepository = new DbTableRepository(_adoContext);
             _efContext = new ApplicationDbContext();
             _projectTableChangeSetRepository = new ProjectTableChangeSetRepository(_efContext);
+            _projectTableRepository = new ProjectTableRepository(_efContext);
 
             _efContext.Database.Migrate();
             LoadGrids();
@@ -43,7 +45,7 @@ namespace Sync2._0.Controllers
         internal void AddTable(string name, IEnumerable<Column> columns)
         {
             _dbTableRepository.AddTable(name, columns);
-            _efContext.ProjectTables.Add(new ProjectTable(name));
+            _efContext.ProjectTables.Add(new ProjectTable(name, columns));
             _efContext.ProjectTableChangeSets.Add(new ProjectTableChangeSet(name, columns));
 
             _efContext.SaveChanges();
@@ -53,12 +55,14 @@ namespace Sync2._0.Controllers
         {
             _dbTableRepository.AddColumn(tableName, columnName, columnDataType);
             _projectTableChangeSetRepository.AddColumn(tableName, columnName, columnDataType);
+            _projectTableRepository.AddColumn(tableName, columnName, columnDataType);
         }
 
         internal void DropColumn(string tableName, string columnName)
         {
             _dbTableRepository.DropColumn(tableName, columnName);
             _projectTableChangeSetRepository.DropColumn(tableName, columnName);
+            _projectTableRepository.DropColumn(tableName, columnName);
         }
     }
 }
