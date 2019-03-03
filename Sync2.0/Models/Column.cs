@@ -8,13 +8,13 @@ namespace Sync2._0.Models
 {
     public class Column
     {
-        public Column(string name, Type dataType)
-        {
-            Name = name;
-            DataType = dataType;
-        }
+    public Column(string name, Type dataType)
+    {
+        Name = name;
+        DataType = dataType;
+    }
 
-        public string Name { get; set; }
-        public Type DataType { get; set; }
+    public string Name { get; set; }
+    public Type DataType { get; set; }
     }
 }
