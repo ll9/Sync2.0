@@ -13,19 +13,7 @@ namespace Sync2._0.Views
 {
     public partial class AddTableDialog : Form
     {
-        private class NameComboBoxItem
-        {
-            public NameComboBoxItem(string display, Type value)
-            {
-                Display = display;
-                Value = value;
-            }
-
-            public string Display { get; set; }
-            public Type Value { get; set; }
-        }
-
-        public AddTableDialog()
+                public AddTableDialog()
         {
             InitializeComponent();
             Initialize();
@@ -37,16 +25,16 @@ namespace Sync2._0.Views
         {
             AddTableViewModel = new AddTableViewModel();
             addTableViewModelBindingSource.DataSource = AddTableViewModel;
-            dataTypeComboBoxColumn.DataSource = new List<NameComboBoxItem>
+            dataTypeComboBoxColumn.DataSource = new List<ComboBoxItem>
             {
-                new NameComboBoxItem("Text", typeof(string)),
-                new NameComboBoxItem("Zahl", typeof(double)),
-                new NameComboBoxItem("Datum", typeof(DateTime))
+                ComboBoxItem.TextComboBoxItem,
+                ComboBoxItem.ZahlComboBoxItem,
+                ComboBoxItem.DatumComboBoxItem
             };
-            dataTypeComboBoxColumn.DisplayMember = nameof(NameComboBoxItem.Display);
-            dataTypeComboBoxColumn.ValueMember = nameof(NameComboBoxItem.Value);
+            dataTypeComboBoxColumn.DisplayMember = nameof(ComboBoxItem.Display);
+            dataTypeComboBoxColumn.ValueMember = nameof(ComboBoxItem.Value);
 
-            columnViewModelsDataGridView.DefaultValuesNeeded += (s, e) => e.Row.Cells[dataTypeComboBoxColumn.Name].Value = typeof(string);
+            columnViewModelsDataGridView.DefaultValuesNeeded += (s, e) => e.Row.Cells[dataTypeComboBoxColumn.Name].Value = ComboBoxItem.TextComboBoxItem.Value;
         }
 
         private void OkButton_Click(object sender, EventArgs e)
