@@ -1,5 +1,6 @@
 ﻿using RestSharp;
 using Sync2._0.Data;
+using Sync2._0.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,42 +22,21 @@ namespace Sync2._0.Services
 
         public void Sync()
         {
-            //foreach (var item in _context.ProjectTables.Where(p => p.)
-            //{
+            foreach (var projectTable in _context.ProjectTables.Where(p => p.SyncStatus == false))
+            {
+                var request = new RestRequest("api/ProjectTables", Method.POST);
+                request.AddJsonBody(projectTable);
 
-            //}
+                var response = _client.Execute<int>(request);
 
-            //var request = new RestRequest("api/ProjectTables", Method.POST);
-            //request.AddParameter("name", "value"); // adds to POST or URL querystring based on Method
-            //request.AddUrlSegment("id", "123"); // replaces matching token in request.Resource
+                if (response.IsSuccessful)
+                {
+                    projectTable.SyncStatus = true;
+                    projectTable.RowVersion = response.Data;
 
-            //// easily add HTTP Headers
-            //request.AddHeader("header", "value");
-
-            //// add files to upload (works with compatible verbs)
-            //request.AddFile(path);
-
-            //// execute the request
-            //IRestResponse response = _client.Execute(request);
-            //var content = response.Content; // raw content as string
-
-            //// or automatically deserialize result
-            //// return content type is sniffed but can be explicitly set via RestClient.AddHandler();
-            //RestResponse<Person> response2 = _client.Execute<Person>(request);
-            //var name = response2.Data.Name;
-
-            //// easy async support
-            //_client.ExecuteAsync(request, response => {
-            //    Console.WriteLine(response.Content);
-            //});
-
-            //// async with deserialization
-            //var asyncHandle = _client.ExecuteAsync<Person>(request, response => {
-            //    Console.WriteLine(response.Data.Name);
-            //});
-
-            //// abort the request on demand
-            //asyncHandle.Abort();
+                }
+            }
+            _context.SaveChanges();
         }
     }
 }
