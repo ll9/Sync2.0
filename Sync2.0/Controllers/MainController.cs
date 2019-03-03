@@ -70,9 +70,9 @@ namespace Sync2._0.Controllers
                 {
                     dict[columnName] = new Column(columnName, columnDataType);
                     changeset.JsonDict = dict;
-                    changeset.SyncStatus = false;
                 }
             }
+            _efContext.SaveChanges();
         }
 
         internal void DropColumn(string tableName, string columnName)
