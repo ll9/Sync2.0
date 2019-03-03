@@ -179,9 +179,14 @@
     <Compile Include="Migrations\20190302223548_ProjectTable.designer.cs">
       <DependentUpon>20190302223548_ProjectTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20190303103231_ProjectTableChangeset.cs" />
+    <Compile Include="Migrations\20190303103231_ProjectTableChangeset.designer.cs">
+      <DependentUpon>20190303103231_ProjectTableChangeset.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="Models\Column.cs" />
     <Compile Include="Models\ProjectTable.cs" />
+    <Compile Include="Models\ProjectTableChangeSet.cs" />
     <Compile Include="Models\SyncEntity.cs" />
     <Compile Include="Repositories\DbTableRepository.cs" />
     <Compile Include="ViewModels\AddTableViewModel.cs" />

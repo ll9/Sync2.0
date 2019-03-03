@@ -12,6 +12,7 @@ namespace Sync2._0.Data
     public class ApplicationDbContext : DbContext
     {
         public DbSet<ProjectTable> ProjectTables { get; set; }
+        public DbSet<ProjectTableChangeSet> ProjectTableChangeSets { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

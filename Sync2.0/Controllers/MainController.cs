@@ -42,6 +42,7 @@ namespace Sync2._0.Controllers
         {
             _dbTableRepository.AddTable(name, columns);
             _efContext.ProjectTables.Add(new ProjectTable(name));
+            _efContext.ProjectTableChangeSets.Add(new ProjectTableChangeSet(name, columns));
 
             _efContext.SaveChanges();
         }
