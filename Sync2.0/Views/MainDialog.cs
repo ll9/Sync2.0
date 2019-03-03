@@ -81,7 +81,7 @@ namespace Sync2._0
                             var dialog = new AddColumnDialog();
                             if (dialog.ShowDialog() == DialogResult.OK)
                             {
-                                //_controller.AddColumn(dataTable, dialog.ColumnViewModel);
+                                _controller.AddColumn(dataTable.TableName, dialog.ColumnViewModel.Name, dialog.ColumnViewModel.DataType);
                             }
                         }
                     }

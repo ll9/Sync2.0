@@ -45,5 +45,10 @@ namespace Sync2._0.Controllers
 
             _efContext.SaveChanges();
         }
+
+        internal void AddColumn(string tableName, string columnName, Type columnDataType)
+        {
+            _dbTableRepository.AddColumn(tableName, columnName, columnDataType);
+        }
     }
 }

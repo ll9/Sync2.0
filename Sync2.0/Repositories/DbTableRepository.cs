@@ -49,5 +49,16 @@ namespace Sync2._0.Repositories
                 return table;
             }
         }
+
+        internal void AddColumn(string tableName, string columnName, Type columnDataType)
+        {
+            var query = $"ALTER TABLE {tableName} ADD COLUMN {columnName} {columnDataType.GetSqlType()}";
+
+            using (var connection = _context.GetConnection())
+            using (var command = new SQLiteCommand(query, connection))
+            {
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }
