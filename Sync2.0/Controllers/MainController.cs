@@ -61,7 +61,12 @@ namespace Sync2._0.Controllers
                 var dict = changeset.JsonDict;
                 if (dict.ContainsKey(columnName))
                 {
-                    if (dict[columnName].DataType != columnDataType)
+                    if (dict[columnName] == null)
+                    {
+                        dict[columnName] = new Column(columnName, columnDataType);
+                        changeset.JsonDict = dict;
+                    }
+                    else if (dict[columnName].DataType != columnDataType)
                     {
                         throw new InvalidOperationException("Column already exists with different Datatype");
                     }
@@ -78,6 +83,26 @@ namespace Sync2._0.Controllers
         internal void DropColumn(string tableName, string columnName)
         {
             _dbTableRepository.DropColumn(tableName, columnName);
+
+            var changeset = _efContext.ProjectTableChangeSets.SingleOrDefault(p => p.Name == tableName);
+            if (changeset == null)
+            {
+                throw new InvalidOperationException("Cannot Remove Column from nonexistent table");
+            }
+            else
+            {
+                var dict = changeset.JsonDict;
+                if (dict.ContainsKey(columnName))
+                {
+                    dict.Remove(columnName);
+                    changeset.JsonDict = dict;
+                }
+                else
+                {
+                    dict.Add(columnName, null);
+                }
+            }
+            _efContext.SaveChanges();
         }
     }
 }
