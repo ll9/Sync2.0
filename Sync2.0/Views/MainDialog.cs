@@ -105,5 +105,11 @@ namespace Sync2._0
                 }
             }
         }
+
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {
+            GridTabControl.Controls.Clear();
+            _controller.LoadGrids();
+        }
     }
 }

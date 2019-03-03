@@ -29,7 +29,7 @@ namespace Sync2._0.Controllers
             LoadGrids();
         }
 
-        private void LoadGrids()
+        public void LoadGrids()
         {
             foreach (var projectTable in _efContext.ProjectTables)
             {
