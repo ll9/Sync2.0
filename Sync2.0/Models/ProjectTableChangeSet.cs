@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace Sync2._0.Models
         public ProjectTableChangeSet(string name, IEnumerable<Column> columns)
         {
             Name = name;
-            SetJson(columns);
+            JsonDict = columns.ToDictionary(c => c.Name);
         }
 
         [Key]
@@ -28,15 +29,18 @@ namespace Sync2._0.Models
         public int RowVersion { get; set; } = 0;
         public string Json { get; set; }
 
-        public void SetJson(IEnumerable<Column> columns)
+        [NotMapped]
+        [JsonIgnore]
+        public Dictionary<string, Column> JsonDict
         {
-            var colDict = columns.ToDictionary(c => c.Name);
-            Json = JsonConvert.SerializeObject(colDict);
-        }
-
-        public void GetJsonDictionary()
-        {
-            var dict = JsonConvert.DeserializeObject<Dictionary<string, Column>>(Json);
+            get
+            {
+                return JsonConvert.DeserializeObject<Dictionary<string, Column>>(Json);
+            }
+            set
+            {
+                Json = JsonConvert.SerializeObject(value);
+            }
         }
     }
 }

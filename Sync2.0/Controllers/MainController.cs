@@ -50,6 +50,29 @@ namespace Sync2._0.Controllers
         internal void AddColumn(string tableName, string columnName, Type columnDataType)
         {
             _dbTableRepository.AddColumn(tableName, columnName, columnDataType);
+
+            var changeset = _efContext.ProjectTableChangeSets.SingleOrDefault(p => p.Name == tableName);
+            if (changeset == null)
+            {
+                throw new InvalidOperationException("Cannot Add Column to nonexistent table");
+            }
+            else
+            {
+                var dict = changeset.JsonDict;
+                if (dict.ContainsKey(columnName))
+                {
+                    if (dict[columnName].DataType != columnDataType)
+                    {
+                        throw new InvalidOperationException("Column already exists with different Datatype");
+                    }
+                }
+                else
+                {
+                    dict[columnName] = new Column(columnName, columnDataType);
+                    changeset.JsonDict = dict;
+                    changeset.SyncStatus = false;
+                }
+            }
         }
 
         internal void DropColumn(string tableName, string columnName)
