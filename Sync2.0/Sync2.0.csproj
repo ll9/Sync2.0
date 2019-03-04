@@ -182,6 +182,7 @@
     <Compile Include="Data\AdoContext.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Extensions\TypeExtension.cs" />
+    <Compile Include="Facades\DDLFacade.cs" />
     <Compile Include="Migrations\20190302223548_ProjectTable.cs" />
     <Compile Include="Migrations\20190302223548_ProjectTable.designer.cs">
       <DependentUpon>20190302223548_ProjectTable.cs</DependentUpon>

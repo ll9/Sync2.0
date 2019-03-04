@@ -45,13 +45,15 @@ namespace Sync2._0.Repositories
                     changeset.JsonDict = dict;
                 }
             }
+
+            changeset.SyncStatus = false;
             _context.SaveChanges();
         }
 
         public void DropColumn(string tableName, string columnName)
         {
 
-            var changeset = _context.ProjectTableChangeSets.SingleOrDefault(p => p.Name == tableName);
+            var changeset = _context.ProjectTables.SingleOrDefault(p => p.Name == tableName);
             if (changeset == null)
             {
                 throw new InvalidOperationException("Cannot Remove Column from nonexistent table");
@@ -69,6 +71,8 @@ namespace Sync2._0.Repositories
                     dict.Add(columnName, null);
                 }
             }
+
+            changeset.SyncStatus = false;
             _context.SaveChanges();
         }
     }

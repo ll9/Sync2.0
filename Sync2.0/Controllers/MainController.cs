@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Sync2._0.Data;
+using Sync2._0.Facades;
 using Sync2._0.Models;
 using Sync2._0.Repositories;
 using Sync2._0.Services;
@@ -21,6 +23,7 @@ namespace Sync2._0.Controllers
         private ProjectTableChangeSetRepository _projectTableChangeSetRepository;
         private ProjectTableRepository _projectTableRepository;
         private SynchronizationService _syncService;
+        private DDLFacade _dllFacade;
 
         public MainController(MainDialog mainDialog)
         {
@@ -30,7 +33,8 @@ namespace Sync2._0.Controllers
             _efContext = new ApplicationDbContext();
             _projectTableChangeSetRepository = new ProjectTableChangeSetRepository(_efContext);
             _projectTableRepository = new ProjectTableRepository(_efContext);
-            _syncService = new SynchronizationService(_efContext);
+            _dllFacade = new DDLFacade(_efContext, _dbTableRepository, _projectTableChangeSetRepository, _projectTableRepository);
+            _syncService = new SynchronizationService(_efContext, _dllFacade);
 
             _efContext.Database.Migrate();
             LoadGrids();
@@ -47,25 +51,17 @@ namespace Sync2._0.Controllers
 
         internal void AddTable(string name, IEnumerable<Column> columns)
         {
-            _dbTableRepository.AddTable(name, columns);
-            _efContext.ProjectTables.Add(new ProjectTable(name, columns));
-            _efContext.ProjectTableChangeSets.Add(new ProjectTableChangeSet(name, columns));
-
-            _efContext.SaveChanges();
+            _dllFacade.AddTableWithChangeSet(name, columns);
         }
 
         internal void AddColumn(string tableName, string columnName, Type columnDataType)
         {
-            _dbTableRepository.AddColumn(tableName, columnName, columnDataType);
-            _projectTableChangeSetRepository.AddColumn(tableName, columnName, columnDataType);
-            _projectTableRepository.AddColumn(tableName, columnName, columnDataType);
+            _dllFacade.AddColumn(tableName, columnName, columnDataType);
         }
 
         internal void DropColumn(string tableName, string columnName)
         {
-            _dbTableRepository.DropColumn(tableName, columnName);
-            _projectTableChangeSetRepository.DropColumn(tableName, columnName);
-            _projectTableRepository.DropColumn(tableName, columnName);
+            _dllFacade.DropColumn(tableName, columnName);
         }
 
         internal void Sync()

@@ -1,4 +1,5 @@
-﻿using Sync2._0.Data;
+﻿using Sync2._0.Controllers;
+using Sync2._0.Data;
 using Sync2._0.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sync2._0.Repositories
 {
-    class ProjectTableChangeSetRepository
+    public class ProjectTableChangeSetRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -22,7 +23,7 @@ namespace Sync2._0.Repositories
             var changeset = _context.ProjectTableChangeSets.SingleOrDefault(p => p.Name == tableName);
             if (changeset == null)
             {
-                throw new InvalidOperationException("Cannot Add Column to nonexistent table");
+                _context.ProjectTableChangeSets.Add(new ProjectTableChangeSet(tableName, new Column[] { new Column(columnName, columnDataType) }));
             }
             else
             {
