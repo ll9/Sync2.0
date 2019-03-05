@@ -13,5 +13,16 @@ namespace Sync2._0.Models
         public bool IsDeleted { get; set; }
         public int RowVersion { get; set; }
         public string Json { get; set; }
+
+        public static IEnumerable<string> GetSyncEntityNames()
+        {
+            return new[]
+            {
+                nameof(Id),
+                nameof(SyncStatus),
+                nameof(IsDeleted),
+                nameof(RowVersion),
+            };
+        }
     }
 }

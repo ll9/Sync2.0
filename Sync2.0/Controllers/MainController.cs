@@ -26,7 +26,16 @@ namespace Sync2._0.Controllers
             _efContext = new ApplicationDbContext();
 
             _efContext.Database.Migrate();
+            AddProjectId();
             LoadGrids();
+        }
+
+        private void AddProjectId()
+        {
+            if (!_efContext.Projects.Any())
+            {
+                _efContext.Projects.Add(new Project { Id = Guid.NewGuid().ToString() });
+            }
         }
 
         public void LoadGrids()
@@ -54,6 +63,13 @@ namespace Sync2._0.Controllers
         internal void DropColumn(string tableName, string columnName)
         {
             _dbTableRepository.DropColumn(tableName, columnName);
+        }
+
+        internal void HandleSchemaDefinition(DataTable dataTable)
+        {
+            var controller = new SchemaController(dataTable, _efContext);
+            var dialog = controller.CreateDialog();
+            dialog.ShowDialog();
         }
     }
 }
