@@ -2,6 +2,7 @@
 using Sync2._0.Data;
 using Sync2._0.Models;
 using Sync2._0.ViewModels;
+using Sync2._0.Views;
 using System;
 using System.Collections.Generic;
 using System.Data;
