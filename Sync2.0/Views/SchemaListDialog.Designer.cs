@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             this.SchemaListBox = new System.Windows.Forms.ListBox();
+            this.schemaDefinitionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.schemaListViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.CreateButton = new System.Windows.Forms.Button();
             this.EditButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.schemaListViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.schemaDefinitionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.schemaListViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.schemaDefinitionsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.schemaListViewModelBindingSource)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SchemaListBox
@@ -52,6 +52,15 @@
             this.SchemaListBox.Name = "SchemaListBox";
             this.SchemaListBox.Size = new System.Drawing.Size(324, 164);
             this.SchemaListBox.TabIndex = 0;
+            // 
+            // schemaDefinitionsBindingSource
+            // 
+            this.schemaDefinitionsBindingSource.DataMember = "SchemaDefinitions";
+            this.schemaDefinitionsBindingSource.DataSource = this.schemaListViewModelBindingSource;
+            // 
+            // schemaListViewModelBindingSource
+            // 
+            this.schemaListViewModelBindingSource.DataSource = typeof(Sync2._0.ViewModels.SchemaListViewModel);
             // 
             // CreateButton
             // 
@@ -95,6 +104,7 @@
             this.CancelButton.TabIndex = 4;
             this.CancelButton.Text = "Abbrechen";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // groupBox1
             // 
@@ -109,15 +119,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Schemadefinitionen";
             // 
-            // schemaListViewModelBindingSource
-            // 
-            this.schemaListViewModelBindingSource.DataSource = typeof(Sync2._0.ViewModels.SchemaListViewModel);
-            // 
-            // schemaDefinitionsBindingSource
-            // 
-            this.schemaDefinitionsBindingSource.DataMember = "SchemaDefinitions";
-            this.schemaDefinitionsBindingSource.DataSource = this.schemaListViewModelBindingSource;
-            // 
             // SchemaListDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -130,9 +131,9 @@
             this.Controls.Add(this.CreateButton);
             this.Name = "SchemaListDialog";
             this.Text = "SchemaListDialog";
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.schemaListViewModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.schemaDefinitionsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.schemaListViewModelBindingSource)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

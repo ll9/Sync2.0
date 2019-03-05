@@ -48,5 +48,10 @@ namespace Sync2._0.Views
             var selectedSchema = SchemaListBox.SelectedItems.Cast<SchemaDefinition>().ToList();
             _controller.DropSchema(selectedSchema);
         }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

@@ -111,5 +111,16 @@ namespace Sync2._0
             GridTabControl.Controls.Clear();
             _controller.LoadGrids();
         }
+
+        private void schemadefinitionHinzufügenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (GridTabControl.SelectedTab.Controls[0] is DataGridView dataGridView)
+            {
+                if (dataGridView.DataSource is DataTable dataTable)
+                {
+                    _controller.HandleSchemaDefinition(dataTable);
+                }
+            }
+        }
     }
 }

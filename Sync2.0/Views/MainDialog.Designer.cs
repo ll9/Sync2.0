@@ -35,6 +35,7 @@
             this.AddColumnMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DropColumnMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RefreshButton = new System.Windows.Forms.Button();
+            this.schemadefinitionHinzufügenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ColumnMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,21 +61,22 @@
             // 
             this.ColumnMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AddColumnMenuItem,
-            this.DropColumnMenuItem});
+            this.DropColumnMenuItem,
+            this.schemadefinitionHinzufügenToolStripMenuItem});
             this.ColumnMenuStrip.Name = "contextMenuStrip1";
-            this.ColumnMenuStrip.Size = new System.Drawing.Size(170, 48);
+            this.ColumnMenuStrip.Size = new System.Drawing.Size(231, 92);
             // 
             // AddColumnMenuItem
             // 
             this.AddColumnMenuItem.Name = "AddColumnMenuItem";
-            this.AddColumnMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.AddColumnMenuItem.Size = new System.Drawing.Size(230, 22);
             this.AddColumnMenuItem.Text = "Spalte hinzufügen";
             this.AddColumnMenuItem.Click += new System.EventHandler(this.AddColumnMenuItem_Click);
             // 
             // DropColumnMenuItem
             // 
             this.DropColumnMenuItem.Name = "DropColumnMenuItem";
-            this.DropColumnMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.DropColumnMenuItem.Size = new System.Drawing.Size(230, 22);
             this.DropColumnMenuItem.Text = "Spalte löschen";
             this.DropColumnMenuItem.Click += new System.EventHandler(this.DropColumnMenuItem_Click);
             // 
@@ -87,6 +89,13 @@
             this.RefreshButton.Text = "Refresh";
             this.RefreshButton.UseVisualStyleBackColor = true;
             this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
+            // 
+            // schemadefinitionHinzufügenToolStripMenuItem
+            // 
+            this.schemadefinitionHinzufügenToolStripMenuItem.Name = "schemadefinitionHinzufügenToolStripMenuItem";
+            this.schemadefinitionHinzufügenToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.schemadefinitionHinzufügenToolStripMenuItem.Text = "Schemadefinition hinzufügen";
+            this.schemadefinitionHinzufügenToolStripMenuItem.Click += new System.EventHandler(this.schemadefinitionHinzufügenToolStripMenuItem_Click);
             // 
             // MainDialog
             // 
@@ -111,6 +120,7 @@
         private System.Windows.Forms.ToolStripMenuItem AddColumnMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DropColumnMenuItem;
         private System.Windows.Forms.Button RefreshButton;
+        private System.Windows.Forms.ToolStripMenuItem schemadefinitionHinzufügenToolStripMenuItem;
     }
 }
 

@@ -17,6 +17,8 @@ namespace Sync2._0.Views
         {
             InitializeComponent();
             ViewModel = viewModel;
+
+            schemaViewModelBindingSource.DataSource = ViewModel;
         }
 
         public SchemaViewModel ViewModel { get; }
