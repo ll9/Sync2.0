@@ -17,7 +17,7 @@ namespace Sync2._0.Services
 
         public SyncService()
         {
-            _client = new RestClient("https://localhost:44370/");
+            _client = new RestClient("https://localhost:44305/");
         }
 
         public void Sync()

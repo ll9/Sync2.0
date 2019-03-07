@@ -180,17 +180,9 @@
     <Compile Include="Data\AdoContext.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Extensions\TypeExtension.cs" />
-    <Compile Include="Migrations\20190302223548_ProjectTable.cs" />
-    <Compile Include="Migrations\20190302223548_ProjectTable.designer.cs">
-      <DependentUpon>20190302223548_ProjectTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190305190301_Schema.cs" />
-    <Compile Include="Migrations\20190305190301_Schema.designer.cs">
-      <DependentUpon>20190305190301_Schema.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190307211952_SchemaSyncProperties.cs" />
-    <Compile Include="Migrations\20190307211952_SchemaSyncProperties.designer.cs">
-      <DependentUpon>20190307211952_SchemaSyncProperties.cs</DependentUpon>
+    <Compile Include="Migrations\20190307215858_Init.cs" />
+    <Compile Include="Migrations\20190307215858_Init.designer.cs">
+      <DependentUpon>20190307215858_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="Models\Column.cs" />

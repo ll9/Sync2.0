@@ -8,8 +8,8 @@ using Sync2._0.Data;
 namespace Sync2._0.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190305190301_Schema")]
-    partial class Schema
+    [Migration("20190307215858_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,7 +32,11 @@ namespace Sync2._0.Migrations
                     b.Property<string>("Name")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ProjectId");
+
                     b.HasKey("Name");
+
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectTables");
                 });
@@ -44,13 +48,26 @@ namespace Sync2._0.Migrations
 
                     b.Property<string>("Columns");
 
+                    b.Property<bool>("IsDeleted");
+
                     b.Property<string>("ProjectTableName");
+
+                    b.Property<int>("RowVersion");
+
+                    b.Property<bool>("SyncStatus");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectTableName");
 
                     b.ToTable("SchemaDefinitions");
+                });
+
+            modelBuilder.Entity("Sync2._0.Models.ProjectTable", b =>
+                {
+                    b.HasOne("Sync2._0.Models.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId");
                 });
 
             modelBuilder.Entity("Sync2._0.Models.SchemaDefinition", b =>

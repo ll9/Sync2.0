@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Sync2._0.Data;
 using Sync2._0.Models;
 using Sync2._0.Repositories;
+using Sync2._0.Services;
 
 namespace Sync2._0.Controllers
 {
@@ -75,7 +76,8 @@ namespace Sync2._0.Controllers
 
         internal void Sync()
         {
-            throw new NotImplementedException();
+            var syncService = new SyncService();
+            syncService.Sync();
         }
     }
 }

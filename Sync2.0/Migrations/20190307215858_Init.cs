@@ -2,7 +2,7 @@
 
 namespace Sync2._0.Migrations
 {
-    public partial class Schema : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,12 +18,33 @@ namespace Sync2._0.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProjectTables",
+                columns: table => new
+                {
+                    Name = table.Column<string>(nullable: false),
+                    ProjectId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectTables", x => x.Name);
+                    table.ForeignKey(
+                        name: "FK_ProjectTables_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SchemaDefinitions",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
                     Columns = table.Column<string>(nullable: true),
-                    ProjectTableName = table.Column<string>(nullable: true)
+                    ProjectTableName = table.Column<string>(nullable: true),
+                    SyncStatus = table.Column<bool>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    RowVersion = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -37,6 +58,11 @@ namespace Sync2._0.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProjectTables_ProjectId",
+                table: "ProjectTables",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SchemaDefinitions_ProjectTableName",
                 table: "SchemaDefinitions",
                 column: "ProjectTableName");
@@ -45,10 +71,13 @@ namespace Sync2._0.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "SchemaDefinitions");
 
             migrationBuilder.DropTable(
-                name: "SchemaDefinitions");
+                name: "ProjectTables");
+
+            migrationBuilder.DropTable(
+                name: "Projects");
         }
     }
 }

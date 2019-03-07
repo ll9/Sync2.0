@@ -30,7 +30,11 @@ namespace Sync2._0.Migrations
                     b.Property<string>("Name")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ProjectId");
+
                     b.HasKey("Name");
+
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectTables");
                 });
@@ -55,6 +59,13 @@ namespace Sync2._0.Migrations
                     b.HasIndex("ProjectTableName");
 
                     b.ToTable("SchemaDefinitions");
+                });
+
+            modelBuilder.Entity("Sync2._0.Models.ProjectTable", b =>
+                {
+                    b.HasOne("Sync2._0.Models.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId");
                 });
 
             modelBuilder.Entity("Sync2._0.Models.SchemaDefinition", b =>
