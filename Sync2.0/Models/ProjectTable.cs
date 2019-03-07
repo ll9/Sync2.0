@@ -9,12 +9,15 @@ namespace Sync2._0.Models
 {
     public class ProjectTable
     {
-        public ProjectTable(string name)
+        public ProjectTable(string name, string projectId)
         {
             Name = name;
+            ProjectId = projectId;
         }
 
         [Key]
         public string Name { get; set; }
+        public Project Project { get; set; }
+        public string ProjectId { get; set; }
     }
 }

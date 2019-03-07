@@ -50,7 +50,8 @@ namespace Sync2._0.Controllers
         internal void AddTable(string name, IEnumerable<Column> columns)
         {
             _dbTableRepository.AddTable(name, columns);
-            _efContext.ProjectTables.Add(new ProjectTable(name));
+            var porjectId = _efContext.Projects.Single().Id;
+            _efContext.ProjectTables.Add(new ProjectTable(name, porjectId));
 
             _efContext.SaveChanges();
         }

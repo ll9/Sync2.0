@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sync2._0.Services
 {
@@ -26,7 +27,7 @@ namespace Sync2._0.Services
 
         private void SyncSchema()
         {
-            ICollection<SchemaDefinition> changes = GetChanges();
+            ICollection<SchemaDefinition> changes = GetSchemaDefinitionChanges();
             var maxSync = GetMaxSync();
 
             var request = new RestRequest("api/schemadefinitions/{maxSync}", Method.POST);
@@ -46,7 +47,7 @@ namespace Sync2._0.Services
 
                         if (context.SchemaDefinitions.Any(e => e.Id == item.Id))
                         {
-                            context.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                            context.Entry(item).State = EntityState.Modified;
                         }
                         else
                         {
@@ -69,12 +70,14 @@ namespace Sync2._0.Services
             }
         }
 
-        private ICollection<SchemaDefinition> GetChanges()
+        private ICollection<SchemaDefinition> GetSchemaDefinitionChanges()
         {
             using (var context = new ApplicationDbContext())
             {
                 return context.SchemaDefinitions
                     .Where(b => b.SyncStatus == false)
+                    .Include(b => b.ProjectTable)
+                    .ThenInclude(p => p.Project)
                     .ToList();
             }
         }
