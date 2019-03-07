@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,10 @@ namespace Sync2._0.Models
         }
 
         public string Name { get; set; }
+        [JsonIgnore]
         public Type DataType { get; set; }
+
+        [JsonProperty(PropertyName = "DataType")]
+        private string DataTypeString => DataType.FullName;
     }
 }

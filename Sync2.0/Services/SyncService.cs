@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Sync2._0.Services
 {
@@ -31,11 +32,12 @@ namespace Sync2._0.Services
             var maxSync = GetMaxSync();
 
             var request = new RestRequest("api/SchemaDefinitions/{maxSync}", Method.POST);
-            request.JsonSerializer = new JsonSerializer();
+            request.JsonSerializer = new Serializers.JsonSerializer();
             request.AddUrlSegment("maxSync", maxSync);
             request.AddJsonBody(changes);
 
             var response = _client.Execute<List<SchemaDefinition>>(request);
+            var res = JsonConvert.DeserializeObject<List<SchemaDefinition>>(response.Content);
 
             if (response.IsSuccessful && response.Data != null)
             {
