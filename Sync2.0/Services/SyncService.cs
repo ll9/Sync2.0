@@ -30,7 +30,7 @@ namespace Sync2._0.Services
             ICollection<SchemaDefinition> changes = GetSchemaDefinitionChanges();
             var maxSync = GetMaxSync();
 
-            var request = new RestRequest("api/schemadefinitions/{maxSync}", Method.POST);
+            var request = new RestRequest("api/SchemaDefinitions/{maxSync}", Method.POST);
             request.JsonSerializer = new JsonSerializer();
             request.AddUrlSegment("maxSync", maxSync);
             request.AddJsonBody(changes);

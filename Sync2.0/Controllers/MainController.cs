@@ -36,6 +36,7 @@ namespace Sync2._0.Controllers
             if (!_efContext.Projects.Any())
             {
                 _efContext.Projects.Add(new Project { Id = Guid.NewGuid().ToString() });
+                _efContext.SaveChanges();
             }
         }
 
