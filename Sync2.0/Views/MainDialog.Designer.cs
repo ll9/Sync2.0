@@ -34,8 +34,9 @@
             this.ColumnMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.AddColumnMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DropColumnMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.RefreshButton = new System.Windows.Forms.Button();
             this.schemadefinitionHinzufügenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RefreshButton = new System.Windows.Forms.Button();
+            this.SyncButton = new System.Windows.Forms.Button();
             this.ColumnMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +65,7 @@
             this.DropColumnMenuItem,
             this.schemadefinitionHinzufügenToolStripMenuItem});
             this.ColumnMenuStrip.Name = "contextMenuStrip1";
-            this.ColumnMenuStrip.Size = new System.Drawing.Size(231, 92);
+            this.ColumnMenuStrip.Size = new System.Drawing.Size(231, 70);
             // 
             // AddColumnMenuItem
             // 
@@ -80,6 +81,13 @@
             this.DropColumnMenuItem.Text = "Spalte löschen";
             this.DropColumnMenuItem.Click += new System.EventHandler(this.DropColumnMenuItem_Click);
             // 
+            // schemadefinitionHinzufügenToolStripMenuItem
+            // 
+            this.schemadefinitionHinzufügenToolStripMenuItem.Name = "schemadefinitionHinzufügenToolStripMenuItem";
+            this.schemadefinitionHinzufügenToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.schemadefinitionHinzufügenToolStripMenuItem.Text = "Schemadefinition hinzufügen";
+            this.schemadefinitionHinzufügenToolStripMenuItem.Click += new System.EventHandler(this.schemadefinitionHinzufügenToolStripMenuItem_Click);
+            // 
             // RefreshButton
             // 
             this.RefreshButton.Location = new System.Drawing.Point(831, 59);
@@ -90,18 +98,22 @@
             this.RefreshButton.UseVisualStyleBackColor = true;
             this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
-            // schemadefinitionHinzufügenToolStripMenuItem
+            // SyncButton
             // 
-            this.schemadefinitionHinzufügenToolStripMenuItem.Name = "schemadefinitionHinzufügenToolStripMenuItem";
-            this.schemadefinitionHinzufügenToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.schemadefinitionHinzufügenToolStripMenuItem.Text = "Schemadefinition hinzufügen";
-            this.schemadefinitionHinzufügenToolStripMenuItem.Click += new System.EventHandler(this.schemadefinitionHinzufügenToolStripMenuItem_Click);
+            this.SyncButton.Location = new System.Drawing.Point(831, 105);
+            this.SyncButton.Name = "SyncButton";
+            this.SyncButton.Size = new System.Drawing.Size(75, 23);
+            this.SyncButton.TabIndex = 3;
+            this.SyncButton.Text = "Sync";
+            this.SyncButton.UseVisualStyleBackColor = true;
+            this.SyncButton.Click += new System.EventHandler(this.SyncButton_Click);
             // 
             // MainDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(941, 428);
+            this.Controls.Add(this.SyncButton);
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.AddTableButton);
             this.Controls.Add(this.GridTabControl);
@@ -121,6 +133,7 @@
         private System.Windows.Forms.ToolStripMenuItem DropColumnMenuItem;
         private System.Windows.Forms.Button RefreshButton;
         private System.Windows.Forms.ToolStripMenuItem schemadefinitionHinzufügenToolStripMenuItem;
+        private System.Windows.Forms.Button SyncButton;
     }
 }
 

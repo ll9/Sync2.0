@@ -122,5 +122,10 @@ namespace Sync2._0
                 }
             }
         }
+
+        private void SyncButton_Click(object sender, EventArgs e)
+        {
+            _controller.Sync();
+        }
     }
 }

@@ -71,5 +71,10 @@ namespace Sync2._0.Controllers
             var dialog = controller.CreateDialog();
             dialog.ShowDialog();
         }
+
+        internal void Sync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
