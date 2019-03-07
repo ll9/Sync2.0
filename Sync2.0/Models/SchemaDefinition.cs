@@ -15,5 +15,9 @@ namespace Sync2._0.Models
 
         public ProjectTable ProjectTable { get; set; }
         public string ProjectTableName { get; set; }
+
+        public bool SyncStatus { get; set; }
+        public bool IsDeleted { get; set; }
+        public int RowVersion { get; set; }
     }
 }
