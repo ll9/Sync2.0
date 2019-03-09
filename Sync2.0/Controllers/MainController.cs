@@ -75,10 +75,17 @@ namespace Sync2._0.Controllers
             dialog.ShowDialog();
         }
 
-        internal void Sync()
+        internal void Sync(List<DataTable> dataTables)
         {
-            var syncService = new SyncService();
-            syncService.Sync();
+            var syncEntities = dataTables
+                .SelectMany(dt => _dbTableRepository.ListSyncEntities(dt.TableName));
+            var syncService = new SyncService(_dbTableRepository);
+            syncService.Sync(syncEntities);
+        }
+
+        internal void SaveChanges(DataTable dataTable)
+        {
+            _adoContext.Update(dataTable);
         }
     }
 }

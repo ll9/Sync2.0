@@ -46,9 +46,43 @@ namespace Sync2._0
                 Dock = DockStyle.Fill
             };
             dataGrid.ColumnHeaderMouseClick += DataGrid_ColumnHeaderMouseClick;
+            dataGrid.DefaultValuesNeeded += DataGrid_DefaultValuesNeeded;
+            dataGrid.CellEndEdit += DataGrid_CellEndEdit;
 
             tabPage.Controls.Add(dataGrid);
             GridTabControl.TabPages.Add(tabPage);
+        }
+
+        private void DataGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            var dataGrid = sender as DataGridView;
+
+            if (dataGrid.Columns.Contains(nameof(SyncEntity.SyncStatus)))
+            {
+                dataGrid.Rows[e.RowIndex].Cells[nameof(SyncEntity.SyncStatus)].Value = false;
+            }
+        }
+
+        private void DataGrid_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            var dataGrid = sender as DataGridView;
+
+            if (dataGrid.Columns.Contains(nameof(SyncEntity.Id)))
+            {
+                e.Row.Cells[nameof(SyncEntity.Id)].Value = Guid.NewGuid().ToString();
+            }
+            if (dataGrid.Columns.Contains(nameof(SyncEntity.SyncStatus)))
+            {
+                e.Row.Cells[nameof(SyncEntity.SyncStatus)].Value = false;
+            }
+            if (dataGrid.Columns.Contains(nameof(SyncEntity.IsDeleted)))
+            {
+                e.Row.Cells[nameof(SyncEntity.IsDeleted)].Value = false;
+            }
+            if (dataGrid.Columns.Contains(nameof(SyncEntity.RowVersion)))
+            {
+                e.Row.Cells[nameof(SyncEntity.RowVersion)].Value = 0;
+            }
         }
 
         private void DataGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -125,7 +159,32 @@ namespace Sync2._0
 
         private void SyncButton_Click(object sender, EventArgs e)
         {
-            _controller.Sync();
+            var dataTables = new List<DataTable>();
+            foreach (TabPage tabPage in GridTabControl.TabPages)
+            {
+                if (tabPage.Controls.Cast<Control>().FirstOrDefault() is DataGridView dataGridView)
+                {
+                    if (dataGridView.DataSource is DataTable dataTable)
+                    {
+                        dataTables.Add(dataTable);
+                    }
+                }
+            }
+            _controller.Sync(dataTables);
+        }
+
+        private void MainDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            foreach (TabPage tabPage in GridTabControl.TabPages)
+            {
+                if (tabPage.Controls.Cast<Control>().FirstOrDefault() is DataGridView dataGridView)
+                {
+                    if (dataGridView.DataSource is DataTable dataTable)
+                    {
+                        _controller.SaveChanges(dataTable);
+                    }
+                }
+            }
         }
     }
 }

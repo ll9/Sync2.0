@@ -146,5 +146,72 @@ namespace Sync2._0.Repositories
             _context.ExecuteQuery(insertQuery);
             _context.ExecuteQuery(dropQuery);
         }
+
+        internal void InsertOrReplace(SyncEntity syncEntity)
+        {
+            var schema = List(syncEntity.ProjectTableName);
+            var columnNames = new HashSet<string>
+            {
+                {nameof(SyncEntity.Id)},
+                {nameof(SyncEntity.SyncStatus)},
+                {nameof(SyncEntity.IsDeleted)},
+                {nameof(SyncEntity.RowVersion)},
+            }
+                .Concat(syncEntity.Data.Keys)
+                .Where(name => schema.Columns.Cast<DataColumn>()
+                    .Any(c => c.ColumnName.Equals(name, StringComparison.OrdinalIgnoreCase)));
+
+            var query = $"INSERT OR REPLACE INTO {syncEntity.ProjectTableName}({string.Join(", ", columnNames)}) VALUES({string.Join(", ", columnNames.Select(cn => $"@{cn}"))})";
+
+            using (var connection = _context.GetConnection())
+            using (var command = new SQLiteCommand(query, connection))
+            {
+                foreach (var columnName in columnNames)
+                {
+                    command.Parameters.AddWithValue(columnName, syncEntity.Data[columnName]);
+                }
+                command.Parameters.AddWithValue(nameof(SyncEntity.Id), syncEntity.Id);
+                command.Parameters.AddWithValue(nameof(SyncEntity.SyncStatus), syncEntity.SyncStatus);
+                command.Parameters.AddWithValue(nameof(SyncEntity.RowVersion), syncEntity.RowVersion);
+                command.Parameters.AddWithValue(nameof(SyncEntity.IsDeleted), syncEntity.IsDeleted);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        internal DataTable ListSchema(string tableName)
+        {
+            var query = $"SELECT * FROM {tableName}";
+
+            using (var connection = _context.GetConnection())
+            using (var adapter = new SQLiteDataAdapter(query, connection))
+            {
+                var table = new DataTable(tableName);
+                adapter.FillSchema(table, SchemaType.Mapped);
+                return table;
+            }
+        }
+
+        public IEnumerable<SyncEntity> ListSyncEntities(string tableName)
+        {
+            Project project = GetProject();
+            var projectTable = new ProjectTable(tableName, project);
+
+            var dataTable = List(tableName);
+
+            var syncEntities = dataTable.Rows
+                .Cast<DataRow>()
+                .Select(r => new SyncEntity(r, projectTable));
+
+            return syncEntities;
+        }
+
+        private Project GetProject()
+        {
+            var query = $"SELECT {nameof(Project.Id)} from {nameof(ApplicationDbContext.Projects)}";
+            var projectId = _context.ExecuteScalar(query).ToString();
+            var project = new Project { Id = projectId };
+            return project;
+        }
     }
 }

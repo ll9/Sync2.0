@@ -33,26 +33,26 @@
             this.ToErfassenButton = new System.Windows.Forms.Button();
             this.ToNichtErfassenButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.NichtErfassenListBox = new System.Windows.Forms.ListBox();
+            this.nicthErfassenBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.schemaViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ErfassenListBox = new System.Windows.Forms.ListBox();
+            this.erfassenBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.OkButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
-            this.schemaViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.erfassenBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.nicthErfassenBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.schemaViewModelBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erfassenBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nicthErfassenBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.schemaViewModelBindingSource)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.erfassenBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -104,6 +104,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Nicht Erfassen";
             // 
+            // NichtErfassenListBox
+            // 
+            this.NichtErfassenListBox.DataSource = this.nicthErfassenBindingSource;
+            this.NichtErfassenListBox.DisplayMember = "ColumnName";
+            this.NichtErfassenListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.NichtErfassenListBox.FormattingEnabled = true;
+            this.NichtErfassenListBox.Location = new System.Drawing.Point(3, 16);
+            this.NichtErfassenListBox.Name = "NichtErfassenListBox";
+            this.NichtErfassenListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.NichtErfassenListBox.Size = new System.Drawing.Size(272, 243);
+            this.NichtErfassenListBox.TabIndex = 0;
+            // 
+            // nicthErfassenBindingSource
+            // 
+            this.nicthErfassenBindingSource.DataMember = "NicthErfassen";
+            this.nicthErfassenBindingSource.DataSource = this.schemaViewModelBindingSource;
+            // 
+            // schemaViewModelBindingSource
+            // 
+            this.schemaViewModelBindingSource.DataSource = typeof(Sync2._0.ViewModels.SchemaViewModel);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.ErfassenListBox);
@@ -116,17 +137,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Erfassen";
             // 
-            // NichtErfassenListBox
-            // 
-            this.NichtErfassenListBox.DataSource = this.nicthErfassenBindingSource;
-            this.NichtErfassenListBox.DisplayMember = "ColumnName";
-            this.NichtErfassenListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NichtErfassenListBox.FormattingEnabled = true;
-            this.NichtErfassenListBox.Location = new System.Drawing.Point(3, 16);
-            this.NichtErfassenListBox.Name = "NichtErfassenListBox";
-            this.NichtErfassenListBox.Size = new System.Drawing.Size(272, 243);
-            this.NichtErfassenListBox.TabIndex = 0;
-            // 
             // ErfassenListBox
             // 
             this.ErfassenListBox.DataSource = this.erfassenBindingSource;
@@ -135,8 +145,14 @@
             this.ErfassenListBox.FormattingEnabled = true;
             this.ErfassenListBox.Location = new System.Drawing.Point(3, 16);
             this.ErfassenListBox.Name = "ErfassenListBox";
+            this.ErfassenListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.ErfassenListBox.Size = new System.Drawing.Size(272, 243);
             this.ErfassenListBox.TabIndex = 0;
+            // 
+            // erfassenBindingSource
+            // 
+            this.erfassenBindingSource.DataMember = "Erfassen";
+            this.erfassenBindingSource.DataSource = this.schemaViewModelBindingSource;
             // 
             // OkButton
             // 
@@ -160,20 +176,6 @@
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // schemaViewModelBindingSource
-            // 
-            this.schemaViewModelBindingSource.DataSource = typeof(Sync2._0.ViewModels.SchemaViewModel);
-            // 
-            // erfassenBindingSource
-            // 
-            this.erfassenBindingSource.DataMember = "Erfassen";
-            this.erfassenBindingSource.DataSource = this.schemaViewModelBindingSource;
-            // 
-            // nicthErfassenBindingSource
-            // 
-            this.nicthErfassenBindingSource.DataMember = "NicthErfassen";
-            this.nicthErfassenBindingSource.DataSource = this.schemaViewModelBindingSource;
-            // 
             // SchemaDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -186,10 +188,10 @@
             this.Text = "SchemaDialog";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.schemaViewModelBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erfassenBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nicthErfassenBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.schemaViewModelBindingSource)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.erfassenBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

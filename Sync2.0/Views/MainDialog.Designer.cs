@@ -119,6 +119,7 @@
             this.Controls.Add(this.GridTabControl);
             this.Name = "MainDialog";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainDialog_FormClosing);
             this.ColumnMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 

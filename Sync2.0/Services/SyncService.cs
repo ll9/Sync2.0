@@ -9,21 +9,57 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Sync2._0.Repositories;
 
 namespace Sync2._0.Services
 {
     public class SyncService
     {
         private RestClient _client;
+        private readonly DbTableRepository _dbTableRepository;
 
-        public SyncService()
+        public SyncService(DbTableRepository dbTableRepository)
         {
             _client = new RestClient("https://localhost:44305/");
+            _dbTableRepository = dbTableRepository;
         }
 
-        public void Sync()
+        public void Sync(IEnumerable<SyncEntity> syncEntities)
         {
             SyncSchema();
+            SyncEntities(syncEntities);
+        }
+
+        private void SyncEntities(IEnumerable<SyncEntity> syncEntities)
+        {
+            var maxSync = syncEntities
+                .Select(s => s.RowVersion)
+                .DefaultIfEmpty(0)
+                .Max();
+
+
+            var changes = syncEntities
+                .Where(s => s.SyncStatus == false);
+
+            var request = new RestRequest("api/DynamicEntities/{maxSync}", Method.POST);
+            request.JsonSerializer = new Serializers.JsonSerializer();
+            request.AddUrlSegment("maxSync", maxSync);
+            request.AddJsonBody(changes);
+
+            var response = _client.Execute(request);
+
+            if (response.IsSuccessful)
+            {
+                var pulledData = JsonConvert.DeserializeObject<List<SyncEntity>>(response.Content);
+                using (var context = new ApplicationDbContext())
+                {
+                    foreach (var syncEntitiy in pulledData)
+                    {
+                        syncEntitiy.SyncStatus = true;
+                        _dbTableRepository.InsertOrReplace(syncEntitiy);
+                    }
+                }
+            }
         }
 
         private void SyncSchema()
@@ -36,24 +72,24 @@ namespace Sync2._0.Services
             request.AddUrlSegment("maxSync", maxSync);
             request.AddJsonBody(changes);
 
-            var response = _client.Execute<List<SchemaDefinition>>(request);
-            var res = JsonConvert.DeserializeObject<List<SchemaDefinition>>(response.Content);
+            var response = _client.Execute(request);
 
-            if (response.IsSuccessful && response.Data != null)
+            if (response.IsSuccessful)
             {
+                var pulledData = JsonConvert.DeserializeObject<List<SchemaDefinition>>(response.Content);
                 using (var context = new ApplicationDbContext())
                 {
-                    foreach (var item in response.Data)
+                    foreach (var schemaDefinition in pulledData)
                     {
-                        item.SyncStatus = true;
+                        schemaDefinition.SyncStatus = true;
 
-                        if (context.SchemaDefinitions.Any(e => e.Id == item.Id))
+                        if (context.SchemaDefinitions.Any(e => e.Id == schemaDefinition.Id))
                         {
-                            context.Entry(item).State = EntityState.Modified;
+                            context.Entry(schemaDefinition).State = EntityState.Modified;
                         }
                         else
                         {
-                            context.SchemaDefinitions.Add(item);
+                            context.SchemaDefinitions.Add(schemaDefinition);
                         }
                     }
                     context.SaveChanges();
