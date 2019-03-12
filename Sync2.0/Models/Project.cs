@@ -11,5 +11,7 @@ namespace Sync2._0.Models
     {
         [Key]
         public string Id { get; set; }
+
+        public ICollection<ProjectTable> ProjectTables { get; set; }
     }
 }

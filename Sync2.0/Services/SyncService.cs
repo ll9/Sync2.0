@@ -24,13 +24,13 @@ namespace Sync2._0.Services
             _dbTableRepository = dbTableRepository;
         }
 
-        public void Sync(IEnumerable<SyncEntity> syncEntities)
+        public void Sync(IEnumerable<DynamicEntity> syncEntities)
         {
             SyncSchema();
             SyncEntities(syncEntities);
         }
 
-        private void SyncEntities(IEnumerable<SyncEntity> syncEntities)
+        private void SyncEntities(IEnumerable<DynamicEntity> syncEntities)
         {
             var maxSync = syncEntities
                 .Select(s => s.RowVersion)
@@ -50,7 +50,7 @@ namespace Sync2._0.Services
 
             if (response.IsSuccessful)
             {
-                var pulledData = JsonConvert.DeserializeObject<List<SyncEntity>>(response.Content);
+                var pulledData = JsonConvert.DeserializeObject<List<DynamicEntity>>(response.Content);
                 using (var context = new ApplicationDbContext())
                 {
                     foreach (var syncEntitiy in pulledData)

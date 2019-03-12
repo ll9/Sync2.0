@@ -184,11 +184,16 @@
     <Compile Include="Migrations\20190307215858_Init.designer.cs">
       <DependentUpon>20190307215858_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20190312222453_ModelRefactoring.cs" />
+    <Compile Include="Migrations\20190312222453_ModelRefactoring.designer.cs">
+      <DependentUpon>20190312222453_ModelRefactoring.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="Models\Column.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectTable.cs" />
     <Compile Include="Models\SchemaDefinition.cs" />
+    <Compile Include="Models\DynamicEntity.cs" />
     <Compile Include="Models\SyncEntity.cs" />
     <Compile Include="Repositories\DbTableRepository.cs" />
     <Compile Include="Serializers\JsonSerializer.cs" />

@@ -40,7 +40,7 @@ namespace Sync2._0.Controllers
         internal void CreateSchema()
         {
             var _nichtErfassen = _dataTable.Columns.Cast<DataColumn>()
-                .Where(c => !SyncEntity.GetSyncEntityNames().Any(se => se.Equals(c.ColumnName, StringComparison.OrdinalIgnoreCase)))
+                .Where(c => !DynamicEntity.GetSyncEntityNames().Any(se => se.Equals(c.ColumnName, StringComparison.OrdinalIgnoreCase)))
                 .ToList();
 
             var _erfassen = new List<DataColumn>();
@@ -72,7 +72,7 @@ namespace Sync2._0.Controllers
                 .ToList();
 
             var _nichtErfassen = _dataTable.Columns.Cast<DataColumn>()
-                .Where(c => !SyncEntity.GetSyncEntityNames().Any(se => se.Equals(c.ColumnName, StringComparison.OrdinalIgnoreCase)))
+                .Where(c => !DynamicEntity.GetSyncEntityNames().Any(se => se.Equals(c.ColumnName, StringComparison.OrdinalIgnoreCase)))
                 .Where(c => !_erfassen.Any(erf => erf.ColumnName.Equals(c.ColumnName, StringComparison.OrdinalIgnoreCase)))
                 .ToList();
 

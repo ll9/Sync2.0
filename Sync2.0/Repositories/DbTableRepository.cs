@@ -71,10 +71,10 @@ namespace Sync2._0.Repositories
         {
             var columnQuery = string.Join(", ",
                 new[] {
-                    $"{nameof(SyncEntity.Id)} TEXT DEFAULT (HEX(RANDOMBLOB(16))) PRIMARY KEY",
-                    $"{nameof(SyncEntity.SyncStatus)} BOOLEAN",
-                    $"{nameof(SyncEntity.IsDeleted)} BOOLEAN",
-                    $"{nameof(SyncEntity.RowVersion)} INTEGER"
+                    $"{nameof(DynamicEntity.Id)} TEXT DEFAULT (HEX(RANDOMBLOB(16))) PRIMARY KEY",
+                    $"{nameof(DynamicEntity.SyncStatus)} BOOLEAN",
+                    $"{nameof(DynamicEntity.IsDeleted)} BOOLEAN",
+                    $"{nameof(DynamicEntity.RowVersion)} INTEGER"
                 }.Concat(
                     columns.Select(c => $"{c.Name} {c.DataType.GetSqlType()}")
                     )
@@ -147,15 +147,15 @@ namespace Sync2._0.Repositories
             _context.ExecuteQuery(dropQuery);
         }
 
-        internal void InsertOrReplace(SyncEntity syncEntity)
+        internal void InsertOrReplace(DynamicEntity syncEntity)
         {
             var schema = List(syncEntity.ProjectTableName);
             var columnNames = new HashSet<string>
             {
-                {nameof(SyncEntity.Id)},
-                {nameof(SyncEntity.SyncStatus)},
-                {nameof(SyncEntity.IsDeleted)},
-                {nameof(SyncEntity.RowVersion)},
+                {nameof(DynamicEntity.Id)},
+                {nameof(DynamicEntity.SyncStatus)},
+                {nameof(DynamicEntity.IsDeleted)},
+                {nameof(DynamicEntity.RowVersion)},
             }
                 .Concat(syncEntity.Data.Keys)
                 .Where(name => schema.Columns.Cast<DataColumn>()
@@ -170,10 +170,10 @@ namespace Sync2._0.Repositories
                 {
                     command.Parameters.AddWithValue(columnName, syncEntity.Data[columnName]);
                 }
-                command.Parameters.AddWithValue(nameof(SyncEntity.Id), syncEntity.Id);
-                command.Parameters.AddWithValue(nameof(SyncEntity.SyncStatus), syncEntity.SyncStatus);
-                command.Parameters.AddWithValue(nameof(SyncEntity.RowVersion), syncEntity.RowVersion);
-                command.Parameters.AddWithValue(nameof(SyncEntity.IsDeleted), syncEntity.IsDeleted);
+                command.Parameters.AddWithValue(nameof(DynamicEntity.Id), syncEntity.Id);
+                command.Parameters.AddWithValue(nameof(DynamicEntity.SyncStatus), syncEntity.SyncStatus);
+                command.Parameters.AddWithValue(nameof(DynamicEntity.RowVersion), syncEntity.RowVersion);
+                command.Parameters.AddWithValue(nameof(DynamicEntity.IsDeleted), syncEntity.IsDeleted);
 
                 command.ExecuteNonQuery();
             }
@@ -192,7 +192,7 @@ namespace Sync2._0.Repositories
             }
         }
 
-        public IEnumerable<SyncEntity> ListSyncEntities(string tableName)
+        public IEnumerable<DynamicEntity> ListSyncEntities(string tableName)
         {
             Project project = GetProject();
             var projectTable = new ProjectTable(tableName, project);
@@ -201,7 +201,7 @@ namespace Sync2._0.Repositories
 
             var syncEntities = dataTable.Rows
                 .Cast<DataRow>()
-                .Select(r => new SyncEntity(r, projectTable));
+                .Select(r => new DynamicEntity(r, projectTable));
 
             return syncEntities;
         }

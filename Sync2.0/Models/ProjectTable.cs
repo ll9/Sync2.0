@@ -29,6 +29,9 @@ namespace Sync2._0.Models
 
         [Key]
         public string Name { get; set; }
+
+        public ICollection<DynamicEntity> DynamicEntities { get; set; }
+        public ICollection<SchemaDefinition> SchemaDefinitions { get; set; }
         public Project Project { get; set; }
         public string ProjectId { get; set; }
     }

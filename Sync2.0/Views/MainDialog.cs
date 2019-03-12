@@ -57,9 +57,9 @@ namespace Sync2._0
         {
             var dataGrid = sender as DataGridView;
 
-            if (dataGrid.Columns.Contains(nameof(SyncEntity.SyncStatus)))
+            if (dataGrid.Columns.Contains(nameof(DynamicEntity.SyncStatus)))
             {
-                dataGrid.Rows[e.RowIndex].Cells[nameof(SyncEntity.SyncStatus)].Value = false;
+                dataGrid.Rows[e.RowIndex].Cells[nameof(DynamicEntity.SyncStatus)].Value = false;
             }
         }
 
@@ -67,21 +67,21 @@ namespace Sync2._0
         {
             var dataGrid = sender as DataGridView;
 
-            if (dataGrid.Columns.Contains(nameof(SyncEntity.Id)))
+            if (dataGrid.Columns.Contains(nameof(DynamicEntity.Id)))
             {
-                e.Row.Cells[nameof(SyncEntity.Id)].Value = Guid.NewGuid().ToString();
+                e.Row.Cells[nameof(DynamicEntity.Id)].Value = Guid.NewGuid().ToString();
             }
-            if (dataGrid.Columns.Contains(nameof(SyncEntity.SyncStatus)))
+            if (dataGrid.Columns.Contains(nameof(DynamicEntity.SyncStatus)))
             {
-                e.Row.Cells[nameof(SyncEntity.SyncStatus)].Value = false;
+                e.Row.Cells[nameof(DynamicEntity.SyncStatus)].Value = false;
             }
-            if (dataGrid.Columns.Contains(nameof(SyncEntity.IsDeleted)))
+            if (dataGrid.Columns.Contains(nameof(DynamicEntity.IsDeleted)))
             {
-                e.Row.Cells[nameof(SyncEntity.IsDeleted)].Value = false;
+                e.Row.Cells[nameof(DynamicEntity.IsDeleted)].Value = false;
             }
-            if (dataGrid.Columns.Contains(nameof(SyncEntity.RowVersion)))
+            if (dataGrid.Columns.Contains(nameof(DynamicEntity.RowVersion)))
             {
-                e.Row.Cells[nameof(SyncEntity.RowVersion)].Value = 0;
+                e.Row.Cells[nameof(DynamicEntity.RowVersion)].Value = 0;
             }
         }
 

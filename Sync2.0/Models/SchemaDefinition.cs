@@ -7,17 +7,20 @@ using System.Threading.Tasks;
 
 namespace Sync2._0.Models
 {
-    public class SchemaDefinition
+    public class SchemaDefinition: SyncEntity
     {
+        public SchemaDefinition()
+        {
+            SyncStatus = false;
+            IsDeleted = false;
+            RowVersion = 0;
+        }
+
         [Key]
         public string Id { get; set; }
         public Dictionary<string, Column> Columns { get; set; }
 
         public ProjectTable ProjectTable { get; set; }
         public string ProjectTableName { get; set; }
-
-        public bool SyncStatus { get; set; } = false;
-        public bool IsDeleted { get; set; } = false;
-        public int RowVersion { get; set; } = 0;
     }
 }
