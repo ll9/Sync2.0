@@ -181,6 +181,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMapper\Profiles\MappingProfile.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\SchemaController.cs" />
     <Compile Include="Data\AdoContext.cs" />

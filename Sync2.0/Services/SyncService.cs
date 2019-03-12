@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Sync2._0.Repositories;
+using AutoMapper;
+using Sync2._0.AutoMapper.Profiles;
+using Sync2._0.DTOs;
 
 namespace Sync2._0.Services
 {
@@ -17,11 +20,13 @@ namespace Sync2._0.Services
     {
         private RestClient _client;
         private readonly DbTableRepository _dbTableRepository;
+        private readonly IMapper _mapper;
 
         public SyncService(DbTableRepository dbTableRepository)
         {
             _client = new RestClient("https://localhost:44305/");
             _dbTableRepository = dbTableRepository;
+            _mapper = new Mapper(new MapperConfiguration(config => config.AddProfile(new MappingProfile())));
         }
 
         public void Sync(IEnumerable<DynamicEntity> syncEntities)
@@ -38,19 +43,21 @@ namespace Sync2._0.Services
                 .Max();
 
 
-            var changes = syncEntities
+            var changedData = syncEntities
                 .Where(s => s.SyncStatus == false);
+            var changeDtos = _mapper.Map<ICollection<DynamicEntityDTO>>(changedData);
 
             var request = new RestRequest("api/DynamicEntities/{maxSync}", Method.POST);
             request.JsonSerializer = new Serializers.JsonSerializer();
             request.AddUrlSegment("maxSync", maxSync);
-            request.AddJsonBody(changes);
+            request.AddJsonBody(changeDtos);
 
             var response = _client.Execute(request);
 
             if (response.IsSuccessful)
             {
-                var pulledData = JsonConvert.DeserializeObject<List<DynamicEntity>>(response.Content);
+                var pulledDtos = JsonConvert.DeserializeObject<List<DynamicEntity>>(response.Content);
+                var pulledData = _mapper.Map<ICollection<DynamicEntity>>(pulledDtos);
                 using (var context = new ApplicationDbContext())
                 {
                     foreach (var syncEntitiy in pulledData)
@@ -65,18 +72,20 @@ namespace Sync2._0.Services
         private void SyncSchema()
         {
             ICollection<SchemaDefinition> changes = GetSchemaDefinitionChanges();
+            var changedDtos = _mapper.Map<ICollection<SchemaDefinitionDTO>>(changes);
             var maxSync = GetMaxSync();
 
             var request = new RestRequest("api/SchemaDefinitions/{maxSync}", Method.POST);
             request.JsonSerializer = new Serializers.JsonSerializer();
             request.AddUrlSegment("maxSync", maxSync);
-            request.AddJsonBody(changes);
+            request.AddJsonBody(changedDtos);
 
             var response = _client.Execute(request);
 
             if (response.IsSuccessful)
             {
-                var pulledData = JsonConvert.DeserializeObject<List<SchemaDefinition>>(response.Content);
+                var pulledDtos = JsonConvert.DeserializeObject<List<SchemaDefinitionDTO>>(response.Content);
+                var pulledData = _mapper.Map<ICollection<SchemaDefinition>>(pulledDtos);
                 using (var context = new ApplicationDbContext())
                 {
                     foreach (var schemaDefinition in pulledData)
