@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -163,6 +166,9 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -179,14 +185,12 @@
     <Compile Include="Controllers\SchemaController.cs" />
     <Compile Include="Data\AdoContext.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="DTOs\DynamicEntityDTO.cs" />
+    <Compile Include="DTOs\SchemaDefinitionDTO.cs" />
     <Compile Include="Extensions\TypeExtension.cs" />
     <Compile Include="Migrations\20190307215858_Init.cs" />
     <Compile Include="Migrations\20190307215858_Init.designer.cs">
       <DependentUpon>20190307215858_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190312222453_ModelRefactoring.cs" />
-    <Compile Include="Migrations\20190312222453_ModelRefactoring.designer.cs">
-      <DependentUpon>20190312222453_ModelRefactoring.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="Models\Column.cs" />
