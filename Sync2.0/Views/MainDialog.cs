@@ -34,6 +34,7 @@ namespace Sync2._0
                     dialog.AddTableViewModel.Name,
                     dialog.AddTableViewModel.ColumnViewModels.Select(c => new Column(c.Name, c.DataType))
                     );
+                Refresh();
             }
         }
 
@@ -142,6 +143,11 @@ namespace Sync2._0
 
         private void RefreshButton_Click(object sender, EventArgs e)
         {
+            RefreshGrids();
+        }
+
+        private void RefreshGrids()
+        {
             GridTabControl.Controls.Clear();
             _controller.LoadGrids();
         }
@@ -159,6 +165,7 @@ namespace Sync2._0
 
         private void SyncButton_Click(object sender, EventArgs e)
         {
+            SaveChanges();
             var dataTables = new List<DataTable>();
             foreach (TabPage tabPage in GridTabControl.TabPages)
             {
@@ -171,9 +178,15 @@ namespace Sync2._0
                 }
             }
             _controller.Sync(dataTables);
+            RefreshGrids();
         }
 
         private void MainDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveChanges();
+        }
+
+        private void SaveChanges()
         {
             foreach (TabPage tabPage in GridTabControl.TabPages)
             {
