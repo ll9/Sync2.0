@@ -30,6 +30,7 @@ namespace Sync2._0.Controllers
             var schemas = _context.SchemaDefinitions
                 .Include(s => s.ProjectTable)
                 .Where(s => s.ProjectTableName == _dataTable.TableName)
+                .Where(s => s.IsDeleted == false)
                 .ToList();
 
             var schemaListViewModel = new SchemaListViewModel(schemas);
@@ -95,7 +96,10 @@ namespace Sync2._0.Controllers
         {
             for (int i = selectedItems.Count - 1; i >= 0; i--)
             {
-                _context.SchemaDefinitions.Remove(selectedItems[i]);
+                selectedItems[i].IsDeleted = true;
+                selectedItems[i].SyncStatus = false;
+                _context.Entry(selectedItems[i]).State = EntityState.Modified;
+                _context.SaveChanges();
                 _view.SchemaListViewModel.SchemaDefinitions.Remove(selectedItems[i]);
             }
             _context.SaveChanges();

@@ -45,7 +45,7 @@
             // SchemaListBox
             // 
             this.SchemaListBox.DataSource = this.schemaDefinitionsBindingSource;
-            this.SchemaListBox.DisplayMember = "Id";
+            this.SchemaListBox.DisplayMember = "TableNameWIthId";
             this.SchemaListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SchemaListBox.FormattingEnabled = true;
             this.SchemaListBox.Location = new System.Drawing.Point(3, 16);

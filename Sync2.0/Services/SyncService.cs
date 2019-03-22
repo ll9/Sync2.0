@@ -62,6 +62,28 @@ namespace Sync2._0.Services
                 {
                     foreach (var syncEntitiy in pulledData)
                     {
+                        foreach (var keyValue in syncEntitiy.Data.ToList())
+                        {
+                            var column = _dbTableRepository.GetColumns(syncEntitiy.ProjectTableName).SingleOrDefault(c => c.Name.Equals(keyValue.Key, StringComparison.OrdinalIgnoreCase));
+                            if (column != null)
+                            {
+                                if (column.GetCSharpType() == typeof(double))
+                                {
+                                    if (!double.TryParse(keyValue.Value?.ToString(), out var result))
+                                    {
+                                        syncEntitiy.Data[column.Name] = default(double);
+                                    }
+                                }
+                                else if (column.GetCSharpType() == typeof(DateTime))
+                                {
+                                    if (!DateTime.TryParse(keyValue.Value?.ToString(), out var result))
+                                    {
+                                        syncEntitiy.Data[column.Name] = null;
+                                    }
+                                }
+                            }
+                        }
+
                         syncEntitiy.SyncStatus = true;
                         _dbTableRepository.InsertOrReplace(syncEntitiy);
                     }
